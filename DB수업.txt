@@ -25,8 +25,8 @@ select d.deptno, e.name, e.job from emp e inner join dept d on e.deptno = d.dept
 --자신의 급여가 평균 급여보다 많고 이름에 T가 들어가는 사원과 동일한 부서에 근무하는 모든 사원의 사원 번호, 이름 및 급여를 출력하라. 
 select deptno, ename, sal from emp where sal>(select avg(sal) from emp) and deptno in (select deptno from emp where ename like '%T%');
 --Dallas에서 근무하는 사원과 직업이 일치하는 사원의 이름,부서이름, 및 급여를 출력하라.
---select e.ename, d.dname, e.sal from emp e, dept d where e.deptno=d.deptno and e.job = (select e.job from emp  where d.loc like 'DALLAS');
---답도출 못함 다음에 해준다 하심
+select e.ename, d.dname, e.sal from emp e, dept d where e.deptno=d.deptno and e.job = (select e.job from emp  where d.loc like 'DALLAS');
+select e.ename, d.dname, e.sal,d.loc from emp e, dept d where e.deptno=d.deptno and e.job in (select e.job from emp e, dept d where e.deptno=d.deptno and d.loc='DALLAS');
 --Scott과 동일한 급여 및 커미션을 받는 모든 사원의 이름, 입사일 및 급여를 출력하라. 
 select ename, hiredate, sal, comm from emp where sal = (select sal from emp where ename ='FORD') or comm = (select sal from emp where ename ='FORD');
 select ename, hiredate, sal, comm from emp where nvl(comm,0)=(select nvl(comm,0) from emp  where ename ='FORD') and sal = (select sal from emp where ename ='FORD')  ;
